@@ -58,18 +58,18 @@ ${charactersToButtons()}
     &nbsp;
     </td>
     <td>
-    <button onClick="move(selected_character, {x: 0, y: 1, z: 0})">/\\</button>
+    <button onClick="move(selected_character, {x: 0, y: 1, z: 0})">Up</button>
     </td>
   </tr>
   <tr>
     <td>
-    <button onClick="move(selected_character, {x: -1, y: 0, z: 0})"><</button>
+    <button onClick="move(selected_character, {x: -1, y: 0, z: 0})">Left</button>
     </td>
     <td>
-    <button onClick="move(selected_character, {x: 0, y: -1, z: 0})">\\/</button>
+    <button onClick="move(selected_character, {x: 0, y: -1, z: 0})">Down</button>
     </td>
     <td>
-    <button onClick="move(selected_character, {x: 1, y: 0, z: 0})">></button>
+    <button onClick="move(selected_character, {x: 1, y: 0, z: 0})">Right</button>
     </td>
   </tr>
 </table>
@@ -99,16 +99,6 @@ function v3_4way(v) {
 
 function v3eq(v1, v2) {
   return v1.x == v2.x && v1.y == v2.y && v1.z == v2.z;
-}
-
-/// √((x_2-x_1)²+(y_2-y_1)²)
-
-function v3_Dis(v1,v2){
-
-  
-  return Math.sqrt((v2.x - v1.x) ** 2) + ((v2.y - v1.y) ** 2);
-
-
 }
 
 
@@ -149,17 +139,10 @@ function responseFunc(request, response) {
         
         setTimeout(() => {
           
-          console.log(v3_Dis(movement.current_pos,positions[username]));
-          console.log(movement.current_pos);
-          console.log(positions[username]);
-
-          
           if (v3eq(movement.current_pos, positions[username])) {
             positions[username] = v3add(positions[username], movement.direction);
           }
           
-          //console.log("moving to: ", movement.direction);
-          //console.log("user", username, "got new pos", positions[username]);
           response.writeHead(200);
           response.end("nice");
         }, 300);
