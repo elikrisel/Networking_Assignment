@@ -12,7 +12,7 @@ function v3add(v1, v2) {
           z: v1.z + v2.z};
 }
 
-/*
+
 function adminPage(){
 
   return(`<script> 
@@ -56,7 +56,7 @@ function adminPage(){
 
 
 }
-*/
+
 // turns a vector into something like {x: 1, y: 0, z: 0}
 function v3_4way(v) {
   if (v.x !== 0) {
