@@ -133,15 +133,12 @@ function responseFunc(request, response) {
           console.log(v3_Dis(movement.current_pos,positions[username]));
           console.log(movement.current_pos);
           console.log(positions[username]);
+
           
-          if(v3_Dis(movement.current_pos, positions[username])){
-            positions[username] = v3add(positions[username], movement.direction);
-          }
-          /*
           if (v3eq(movement.current_pos, positions[username])) {
             positions[username] = v3add(positions[username], movement.direction);
           }
-          */
+          
           //console.log("moving to: ", movement.direction);
           //console.log("user", username, "got new pos", positions[username]);
           response.writeHead(200);
