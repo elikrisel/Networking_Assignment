@@ -3,7 +3,6 @@ const fs = require('fs');
 const path = require('path');
 
 let positions = {elikrisel: {x: 0, y: 0, z: 0},
-                 crab: {x: 4, y: 10, z: 0},
                  robin: {x: -4, y: 0, z: 0}};
 
 function v3add(v1, v2) {
@@ -12,49 +11,69 @@ function v3add(v1, v2) {
           z: v1.z + v2.z};
 }
 
+function charactersToButtons() {
+  return "<select multiple onChange='selected_character = this.options[this.selectedIndex].value'>" +
+          Object.keys(positions).map(name => 
+    `<option>${name}</option>`
+).join("\n")
+         + "</select>";
+}
 
-function adminPage(){
-
-  return(`<script> 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  </script>
-  
-
-
-  <button onClick="v3add({x: 1, y: 0, z: 0}, {x: 0, y: 1, z: 0})">text</button>
-  <table>
+function adminPage() {
+return (
+`
+<!-- <meta http-equiv="refresh" content="0.1"> -->
+<script>
+function get_pos(character) {
+  if (!character) {
+    console.error("no character selected");
+    return;
+  }
+  fetch("http://127.0.0.1:8125/position/" + character,
+        {method: 'GET'})
+  .then(res => res.json())
+  .then(res => { console.log(character,"position:",res);
+                 positions[character] = res; });
+}
+async function move(character, dir) {
+  if (!character) {
+    console.error("no character selected");
+    return;
+  }
+ 
+  fetch("http://127.0.0.1:8125/set-position/" + character, 
+        {method: 'POST', body: JSON.stringify({direction: dir,
+        current_pos: positions[character]})})
+        .then(() => get_pos(character));
+}
+var selected_character = null;
+var positions = {};
+</script>
+<p>Characters</p>
+${charactersToButtons()}
+<button onClick="get_pos(selected_character)">Get Position</button>
+<table>
   <tr>
     <td>
     &nbsp;
     </td>
     <td>
-    <p>button<p>
+    <button onClick="move(selected_character, {x: 0, y: 1, z: 0})">/\\</button>
     </td>
   </tr>
   <tr>
     <td>
-    <p>button1<p>
+    <button onClick="move(selected_character, {x: -1, y: 0, z: 0})"><</button>
     </td>
     <td>
-    <p>button2<p>
+    <button onClick="move(selected_character, {x: 0, y: -1, z: 0})">\\/</button>
     </td>
     <td>
-    <p>button3<p>
+    <button onClick="move(selected_character, {x: 1, y: 0, z: 0})">></button>
     </td>
   </tr>
 </table>
 `);
-
-
 }
 
 // turns a vector into something like {x: 1, y: 0, z: 0}
