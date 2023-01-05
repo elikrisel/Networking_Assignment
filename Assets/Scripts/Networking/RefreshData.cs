@@ -44,7 +44,7 @@ public class RefreshData : MonoBehaviour
 
         while (true)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.3f);
 
             Debug.Log("asking position for " + id.name);
 

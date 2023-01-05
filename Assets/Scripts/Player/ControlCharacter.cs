@@ -60,14 +60,14 @@ public class ControlCharacter : MonoBehaviour, HasPosition
         {
             yield return new WaitForSeconds(0.3f);
 
-            var curpos = map.WorldToCell(transform.position);
+            var curPos = map.WorldToCell(transform.position);
 
-            if (lastPos == curpos && nextPos != targetCell)
+            if (lastPos == curPos && nextPos != targetCell)
             {
-                curpos = new Vector3Int(Mathf.FloorToInt(nextPos.x), Mathf.FloorToInt(nextPos.y), Mathf.FloorToInt(nextPos.z));
+                curPos = new Vector3Int(Mathf.FloorToInt(nextPos.x), Mathf.FloorToInt(nextPos.y), Mathf.FloorToInt(nextPos.z));
             }
 
-            var diff = targetCell - curpos;
+            var diff = targetCell - curPos;
             
             Vector3 direction;
             if (Mathf.Abs(diff.x) > Mathf.Abs(diff.y))
@@ -83,7 +83,7 @@ public class ControlCharacter : MonoBehaviour, HasPosition
 
             var movement = new MovementData();
             movement.direction = direction;
-            movement.current_pos = new Vector3(curpos.x, curpos.y, curpos.z);
+            movement.current_pos = new Vector3(curPos.x, curPos.y, curPos.z);
             nextPos = movement.current_pos + movement.direction;
 
             var json = JsonUtility.ToJson(movement);
