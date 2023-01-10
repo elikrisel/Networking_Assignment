@@ -1,6 +1,7 @@
 const http = require('http');
 const fs = require('fs');
 const path = require('path');
+const { Console } = require('console');
 
 let positions = {elikrisel: {x: 0, y: 0, z: 0},
                  crab: {x: 4, y: 10, z: 0},
@@ -46,18 +47,18 @@ function v3_Dis(v1,v2){
 
 
 function responseFunc(request, response) {
-  console.log("got request:", request.url);
+  //console.log("got request:", request.url);
   let parts = request.url
     .split("/")
     .filter(x => x !== '');
 
-  console.log(parts);
+  //console.log(parts);
 
   switch (parts[0]) {
     case 'position':
       let username = parts[1];
-      console.log("username:", username);
-      console.log(positions[username]);
+      //console.log("username:", username);
+      //console.log(positions[username]);
 
 
       setTimeout(() => {
@@ -75,16 +76,22 @@ function responseFunc(request, response) {
       request.on('end', () => {
         let username = parts[1];
         let movement = JSON.parse(decodeURIComponent(data));
-        console.log(movement);
-
+  
         movement.direction = v3_4way(movement.direction);
+          console.log("Moving: ", v3_4way(movement.direction));
 
         setTimeout(() => {
+          
+          
           if (v3eq(movement.current_pos, positions[username])) {
             positions[username] = v3add(positions[username], movement.direction);
-          }
+            console.log("username: ", username);
+            console.log(" got new position: ", positions[username]);
+            
 
-          console.log("user", username, "got new pos", positions[username]);
+          }
+          
+          //console.log("user", username, "got new pos", positions[username]);
           response.writeHead(200);
           response.end("nice");
         }, 300);

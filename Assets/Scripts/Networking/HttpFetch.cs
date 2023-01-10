@@ -45,6 +45,8 @@ public class HttpFetch : MonoBehaviour
         using (UnityWebRequest req = UnityWebRequest.Post(uri, data))
         {
             yield return req.SendWebRequest();
+            Debug.Log($"Result: {req.result}");
+            Debug.Log($"Error: {req.error}");
 
             switch (req.result)
             {
@@ -72,7 +74,7 @@ public class HttpFetch : MonoBehaviour
     {
         if (doFetch)
         {
-            // StartCoroutine(Fetch("http://127.0.0.1:8125/position/" + id.name));
+            
             doFetch = false;
         }
     }

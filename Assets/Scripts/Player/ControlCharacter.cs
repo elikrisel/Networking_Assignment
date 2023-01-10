@@ -72,12 +72,12 @@ public class ControlCharacter : MonoBehaviour, HasPosition
             Vector3 direction;
             if (Mathf.Abs(diff.x) > Mathf.Abs(diff.y))
             {
-                //nextcell = RelativeCell((new Vector2(diff.x, 0)).normalized);
+                
                 direction = new Vector3(diff.x, 0, 0).normalized;
             }
             else
             {
-                //nextcell = RelativeCell((new Vector2(0, diff.y)).normalized);
+                
                 direction = new Vector3(0, diff.y, 0).normalized;
             }
 
