@@ -84,8 +84,9 @@ public class ControlCharacter : MonoBehaviour, HasPosition
             var movement = new MovementData();
             movement.direction = direction;
             movement.current_pos = new Vector3(curPos.x, curPos.y, curPos.z);
-            nextPos = movement.current_pos + movement.direction;
-
+            //movement.current_pos = map.WorldToCell(Input.mousePosition);
+            //nextPos = movement.current_pos + movement.direction;
+            //nextPos = map.WorldToCell(Input.mousePosition);
             var json = JsonUtility.ToJson(movement);
             Debug.Log(json);
             HttpFetch.Post("http://127.0.0.1:8125/set-position/" + id.name, json);
